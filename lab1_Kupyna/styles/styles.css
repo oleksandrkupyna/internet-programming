@@ -1,0 +1,76 @@
+h2 {
+    font-size: 2em;
+    color: black;
+    text-align: center;
+}
+
+h3, p {
+    font-size: 25px;    
+}
+
+input[type="button"] {
+    font-size: 20px;
+    padding: 10px 20px;
+    background-color: #4CAF50;      
+    color: white;
+    border: none;
+    border-radius: 6px;
+}
+
+input[type="button"]:hover {
+    background-color: #45a049;
+}
+
+.big-text {
+    font-size: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.input-field {
+    text-align: center;
+    width: 500px;
+    height: 40px;
+    font-size: 18px;
+    padding: 5px 10px;
+    border: 1px solid #888;
+    border-radius: 6px;
+}
+
+.row {
+    display: flex; 
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+a.input-field {
+    font-size: 20px;
+    padding: 10px 20px;
+    background-color: #4CAF50;      
+    color: white;
+    border-radius: 6px;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+}
+
+a.input-field:hover {
+    background-color: #45a049;
+}
+
+.back-link {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 12px 20px;
+  background-color: #007BFF;
+  color: white;
+  border-radius: 8px;
+  text-decoration: none;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
+}
+
+.back-link:hover {
+  background-color: #0056b3;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}

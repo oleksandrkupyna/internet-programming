@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <title>Завдання 7</title>
+  <link rel="stylesheet" href="../styles/styles.css">
+  <script>
+    let product = ["Мухомор червоний", "Мухомор зелений", "Мухомор вонючка"];
+    let quantity = [50, 30, 20];
+    let cost = [120, 175, 250];
+
+    let currentIndex = -1;
+
+    function fun1() {
+      let selectElement = document.form1.product_select;
+      let selectedValue = selectElement.value;
+      
+      if (selectedValue === "") {
+        document.form1.output_quantity.value = "Оберіть товар зі списку";
+        document.form1.output_cost.value = "";
+        currentIndex = -1;
+        return;
+      }
+
+      currentIndex = parseInt(selectedValue);
+      document.form1.output_quantity.value = "Наявна кількість: " + quantity[currentIndex];
+      document.form1.output_cost.value = "Ціна за одиницю: " + cost[currentIndex] + " грн";
+    }
+
+    function fun2() {
+      if (currentIndex === -1) {
+        document.getElementById("total").innerText = "Спочатку оберіть товар зі списку";
+        return;
+      }
+      let total = quantity[currentIndex] * cost[currentIndex];
+      document.getElementById("total").innerText =
+        "Загальна сума для \"" + product[currentIndex] + "\": " + total + " грн";
+    }
+
+    function onProductChange() {
+      fun1();
+      document.getElementById("total").innerText = "";
+    }
+  </script>
+</head>
+<body>
+    <a class="back-link" href="../lab1.html">На головну</a>
+  <h2>Завдання 7</h2>
+
+  <form name="form1">
+    Оберіть товар зі списку:<br>
+    <select name="product_select" class="input-field" onchange="onProductChange()">
+      <option value="">-- Оберіть товар --</option>
+      <option value="0">Мухомор червоний</option>
+      <option value="1">Мухомор зелений</option>
+      <option value="2">Мухомор вонючка</option>
+    </select><br><br>
+
+    <input type="button" class="input-field" value="Показати кількість і вартість" onclick="fun1()"><br><br>
+
+    <input type="text" class="input-field" size="50" name="output_quantity" readonly><br>
+    <input type="text" class="input-field" size="50" name="output_cost" readonly><br><br>
+
+    <input type="button" class="input-field" value="Загальна сума" onclick="fun2()"><br><br>
+  </form>
+
+  <p id="total" style="font-weight:bold; color:darkgreen;"></p>
+</body>
+</html>

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+	<link rel="stylesheet" href="styles/styles.css">
+    <title>Лабораторна робота №1</title>
+    <script>
+        function calculation() {
+            let x = 12;
+            let y = 5;
+            let result = 3 * x * y - y + 2 * x;
+            alert("Результат: F = " + result);
+        }
+
+		function showMessage(a) {
+   			document.getElementById('t_res').value = a;
+		}
+		function showMessage2(a) {
+    		document.getElementById('t_res2').value = a;
+		}
+		
+		function calculateTask4() {
+			const xStr = document.getElementById('t_x').value;
+			const yStr = document.getElementById('t_y').value;
+			const out = document.getElementById('t_f');
+			
+		const x = parseFloat(xStr);
+		const y = parseFloat(yStr);
+		
+		if (isNaN(x) || isNaN(y)) {
+			out.value = "Помилка: потрібно ввести числа x та y";
+			return;
+		}
+		let F;
+		if ((x - y) > 2) {
+			F = x - y * y;
+		} else if (x > 0) {
+			F = x ** y;
+			if (!isFinite(F) || isNaN(F)) {
+				out.value = "Неможливо обчислити";
+				return;
+			}
+		} else {
+			F = (x ** 3) - (y * y);
+		}
+		out.value = F;
+	}
+	
+	function calcTask5() {
+		const xStr = document.getElementById("x5").value;
+		const yStr = document.getElementById("y5").value;
+		const out = document.getElementById("s5");
+		
+		const x = parseFloat(xStr);
+		const y = parseFloat(yStr);
+		
+		if (isNaN(x) || isNaN(y)) {
+			out.value = "Помилка: введіть числа";
+			return;
+		}
+		let sum = 0;
+		for (let i = 1; i <= 5; i++) {
+			let fact = 1;
+		for (let j = 1; j <= i; j++) {
+				fact *= j;
+			}
+			let sign = (i % 2 === 0) ? 1 : -1;
+			
+		let term = sign * (2 * x * y - fact) / (1 - x);
+		sum += term;
+	}
+	out.value = sum;
+}
+
+    </script>
+</head>
+<body>
+	<a class="back-link" href="../index.html">На головну</a>
+ 	<h2>Лабораторна робота №1</h2>
+
+
+    <h3>Завдання 1</h3>
+    <p>Це звичайний HTML абзац</p>
+
+    <script>
+        document.write('<span class="big-text">Привіт! Мене звати Купина Олександр Васильович, студент групи ІПЗ-23</span>');
+    </script>
+
+    <p>Знову звичайний HTML абзац</p>
+
+    <form>
+        <input type="button" value="Click me"
+               onClick="alert('Я народився 08.03.2007 року с. Білі Ослави')">
+    </form>
+
+    <hr>
+
+    <h3>Завдання 2</h3>
+    <p>Формула: <b>F = 3xy - y + 2x</b></p>
+
+    <form>
+        <input type="button" value="Calculate" onClick="calculation()">
+    </form>
+
+	<hr>
+
+    <h3>Завдання 3</h3>
+	<form id="form_task3">
+		<div class="row">
+			<input type="text" class="input-field" value="onClick"
+			onClick="showMessage('Клік по першому текстовому полі');">
+			<input type="text" class="input-field" id="t_res">
+		</div>
+		
+		<div class="row">
+			<input type="text" class="input-field" value="onFocus"
+			onFocus="showMessage2('Текстове поле отримало фокус');">
+			<input type="text" class="input-field" id="t_res2">
+		</div>
+	</form>
+	
+	<hr>
+	
+	<h3>Завдання 4</h3>
+	<form id="form_task4" onsubmit="return false;">
+		x <input type="text" id="t_x" class="input-field" placeholder="Введіть число"><br><br>
+		y <input type="text" id="t_y" class="input-field" placeholder="Введіть число"><br><br>
+		F <input type="text" id="t_f" class="input-field" placeholder="Результат" readonly><br><br>
+		<input type="button" onclick="calculateTask4();" value="Розрахувати">
+	</form>
+
+	<hr>
+
+	<h3>Завдання 5</h3>
+	<form id="form_task5" onsubmit="return false;">
+		x <input type="text" id="x5" class="input-field" placeholder="Введіть x"><br><br>
+		y <input type="text" id="y5" class="input-field" placeholder="Введіть y"><br><br>
+		S <input type="text" id="s5" class="input-field" placeholder="Результат" readonly><br><br>
+		<input type="button" value="Обчислити" onclick="calcTask5()">
+	</form>
+
+	<hr>
+
+	<h3>Завдання 6</h3>
+	<a href="html/task6.html" class="input-field">Перейти до завдання 6</a>
+
+	<hr>
+
+	<h3>Завдання 7</h3>
+	<a href="html/task7.html" class="input-field">Перейти до завдання 7</a>
+</body>
+</html>
