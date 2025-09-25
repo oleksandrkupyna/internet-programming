@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Завдання 5 - Методи Console</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-8">
+    <div class="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow-lg">
+        <h1 class="text-2xl font-bold mb-6">Дослідження методів Console</h1>
+        <button onclick="testAllMethods()" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 mb-4">
+            Протестувати всі методи Console
+        </button>
+
+        <div id="output" class="mt-4 p-4 bg-gray-50 border rounded">
+            <h3 class="font-bold mb-2">Результати:</h3>
+            <div id="results">Натисніть кнопку для тестування</div>
+            
+            <div class="mt-4 p-3 bg-yellow-100 border border-yellow-300 rounded">
+                <strong>Примітка:</strong> Повні результати дивіться в Console (F12)
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function testAllMethods() {
+            const testObject = { name: "Тест", value: 42, array: [1, 2, 3] };
+            
+            console.clear();
+            console.log("=== Тестування методів Console ===");
+            
+            console.info("Це інформаційне повідомлення");
+            console.info("Об'єкт:", testObject);
+            
+            console.warn("Це попередження!");
+            console.warn("Увага: можлива помилка");
+            
+            console.error("Це помилка!");
+            console.error("Критична помилка:", new Error("Тестова помилка"));
+            
+            console.dir(testObject);
+            console.dir(document.body);
+            
+            console.dirxml(document.body);
+            console.dirxml(document.querySelector('h1'));
+            
+            console.time("Тест швидкості");
+            for (let i = 0; i < 100000; i++) {
+                Math.random();
+            }
+            console.timeEnd("Тест швидкості");
+            
+            if (console.profile) {
+                console.profile("Профіль тесту");
+                for (let i = 0; i < 10000; i++) {
+                    Math.sqrt(i);
+                }
+                console.profileEnd("Профіль тесту");
+            } else {
+                console.log("console.profile() не підтримується");
+            }
+            
+            console.assert(true, "Це не з'явиться");
+            console.assert(false, "Помилка: умова false!");
+            console.assert(2 + 2 === 5, "Помилка: 2+2 не дорівнює 5");
+            
+            document.getElementById('results').innerHTML = `<div class="text-sm space-y-1">
+                    <div>✅ console.info() - інформаційні повідомлення</div>
+                    <div>✅ console.warn() - попередження</div>
+                    <div>✅ console.error() - помилки</div>
+                    <div>✅ console.dir() - структура об'єктів</div>
+                    <div>✅ console.dirxml() - HTML елементи</div>
+                    <div>✅ console.time() / timeEnd() - вимірювання часу</div>
+                    <div>✅ console.profile() / profileEnd() - профайлинг</div>
+                    <div>✅ console.assert() - умовні помилки</div>
+                </div>`;
+        }
+    </script>
+    
+    <button onclick="history.back()"
+        class="fixed bottom-6 right-6 w-16 h-16 rounded-full bg-blue-600 text-white flex items-center justify-center shadow-lg hover:bg-blue-700 transition">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" class="w-8 h-8">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        </svg>
+    </button>
+</body>
+</html>

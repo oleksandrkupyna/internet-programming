@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Завдання 1 – Годинник</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { display: flex; justify-content: center; align-items: center; height: 100vh; }
+    .clock { font-size: 1.5rem; font-weight: 500; background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+  </style>
+</head>
+<body>
+  <div class="clock" id="clock">Завантаження...</div>
+
+  <script>
+    function updateClock() {
+      const now = new Date();
+
+      const hours = now.getHours();
+      const minutes = now.getMinutes();
+      const seconds = now.getSeconds();
+      const year = now.getFullYear();
+      const month = now.getMonth() + 1;
+      const day = now.getDate();
+
+      const formatted = `${hours} hour$${minutes}min$${seconds}sec-${year}$${month}$${day}`;
+      document.getElementById("clock").textContent = formatted;
+    }
+
+    setInterval(updateClock, 1000);
+    updateClock();
+    </script>
+    <button onclick="history.back()"
+        class="fixed bottom-6 right-6 w-16 h-16 rounded-full bg-blue-600 text-white flex items-center justify-center shadow-lg hover:bg-blue-700 transition">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" class="w-8 h-8">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        </svg>
+    </button>
+</body>
+</html>

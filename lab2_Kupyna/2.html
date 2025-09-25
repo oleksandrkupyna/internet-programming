@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Завдання 2 - Калькулятор</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-800 flex items-center justify-center min-h-screen p-4">
+    <div class="bg-gray-900 rounded-lg p-4 w-80">
+        <input type="text" id="display" class="w-full h-16 bg-gray-700 text-white text-right text-xl px-4 mb-4 rounded" readonly value="0">
+        
+        <div class="grid grid-cols-4 gap-2">
+            <button onclick="clearDisplay()" class="bg-red-600 hover:bg-red-500 text-white p-4 rounded text-lg">C</button>
+            <button onclick="appendToDisplay('/')" class="bg-blue-600 hover:bg-blue-500 text-white p-4 rounded text-lg">÷</button>
+            <button onclick="appendToDisplay('*')" class="bg-blue-600 hover:bg-blue-500 text-white p-4 rounded text-lg">×</button>
+            <button onclick="deleteLast()" class="bg-orange-600 hover:bg-orange-500 text-white p-4 rounded text-lg">⌫</button>
+
+            <button onclick="appendToDisplay('7')" class="bg-gray-700 hover:bg-gray-600 text-white p-4 rounded text-lg">7</button>
+            <button onclick="appendToDisplay('8')" class="bg-gray-700 hover:bg-gray-600 text-white p-4 rounded text-lg">8</button>
+            <button onclick="appendToDisplay('9')" class="bg-gray-700 hover:bg-gray-600 text-white p-4 rounded text-lg">9</button>
+            <button onclick="appendToDisplay('-')" class="bg-blue-600 hover:bg-blue-500 text-white p-4 rounded text-lg">-</button>
+
+            <button onclick="appendToDisplay('4')" class="bg-gray-700 hover:bg-gray-600 text-white p-4 rounded text-lg">4</button>
+            <button onclick="appendToDisplay('5')" class="bg-gray-700 hover:bg-gray-600 text-white p-4 rounded text-lg">5</button>
+            <button onclick="appendToDisplay('6')" class="bg-gray-700 hover:bg-gray-600 text-white p-4 rounded text-lg">6</button>
+            <button onclick="appendToDisplay('+')" class="bg-blue-600 hover:bg-blue-500 text-white p-4 rounded text-lg">+</button>
+
+            <button onclick="appendToDisplay('1')" class="bg-gray-700 hover:bg-gray-600 text-white p-4 rounded text-lg">1</button>
+            <button onclick="appendToDisplay('2')" class="bg-gray-700 hover:bg-gray-600 text-white p-4 rounded text-lg">2</button>
+            <button onclick="appendToDisplay('3')" class="bg-gray-700 hover:bg-gray-600 text-white p-4 rounded text-lg">3</button>
+            <button onclick="calculate()" class="bg-green-600 hover:bg-green-500 text-white p-4 rounded text-lg row-span-2">=</button>
+
+            <button onclick="appendToDisplay('0')" class="bg-gray-700 hover:bg-gray-600 text-white p-4 rounded text-lg col-span-2">0</button>
+            <button onclick="appendToDisplay('.')" class="bg-gray-700 hover:bg-gray-600 text-white p-4 rounded text-lg">.</button>
+        </div>
+    </div>
+
+    <script>
+        let display = document.getElementById('display');
+        let currentInput = '';
+
+        function appendToDisplay(value) {
+            if (currentInput === '0' && value !== '.') {
+                currentInput = value;
+            } else {
+                currentInput += value;
+            }
+            display.value = currentInput;
+        }
+
+        function clearDisplay() {
+            currentInput = '';
+            display.value = '0';
+        }
+
+        function deleteLast() {
+            currentInput = currentInput.slice(0, -1);
+            if (currentInput === '') {
+                display.value = '0';
+            } else {
+                display.value = currentInput;
+            }
+        }
+
+        function calculate() {
+            try {
+                if (currentInput === '') return;
+                
+                let result = eval(currentInput);
+                result = Math.round(result * 10000000000) / 10000000000;
+                display.value = result;
+                currentInput = result.toString();
+            } catch (error) {
+                display.value = 'Помилка';
+                currentInput = '';
+            }
+        }
+    </script>
+    <button onclick="history.back()"
+        class="fixed bottom-6 right-6 w-16 h-16 rounded-full bg-blue-600 text-white flex items-center justify-center shadow-lg hover:bg-blue-700 transition">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" class="w-8 h-8">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        </svg>
+    </button>
+</body>
+</html>

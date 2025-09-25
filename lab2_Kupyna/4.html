@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Завдання 4 - Дослідження console.log()</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-8">
+    <div class="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow-lg">
+        <h1 class="text-2xl font-bold mb-6">Дослідження console.log()</h1>
+        
+        <div class="mb-4 flex gap-4">
+            <div>
+                <label class="block mb-2">Перше число (a):</label>
+                <input type="number" id="num1" value="17" class="border border-gray-300 px-3 py-2 rounded">
+            </div>
+            <div>
+                <label class="block mb-2">Друге число (b):</label>
+                <input type="number" id="num2" value="5" class="border border-gray-300 px-3 py-2 rounded">
+            </div>
+        </div>
+
+        <button onclick="runConsoleTests()" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 mb-4">
+            Виконати тестування console.log()
+        </button>
+
+        <div id="output" class="mt-4 p-4 bg-gray-50 border rounded">
+            <h3 class="font-bold mb-2">Результати:</h3>
+            <div id="results"></div>
+            
+            <div class="mt-4 p-3 bg-yellow-100 border border-yellow-300 rounded">
+                <strong>Примітка:</strong> Повні результати дивіться в Console (F12)
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function runConsoleTests() {
+            const a = parseInt(document.getElementById('num1').value);
+            const b = parseInt(document.getElementById('num2').value);
+            const arr = [10, 20, 30];
+            
+            console.clear();
+            console.log("=== Завдання 4: Дослідження console.log() ===");
+            
+            const remainder = a % b;
+            console.log("1. Остача від ділення:");
+            console.log("a=" + a);
+            console.log("b=" + b);
+            console.log("a%b=" + remainder);
+            console.log("a%b=", remainder);
+            
+            const isZero = remainder === 0;
+            console.log("2. Перевірка рівності остачі нулю:");
+            console.log("remainder === 0:", isZero);
+            
+            console.log("3. Робота з масивом:");
+            console.log("arr =", arr);
+            console.log("Значення масиву: %d, %d, %d", arr[0], arr[1], arr[2]);
+            console.log("Перший елемент масиву як рядок: %s", arr[0]);
+            
+            document.getElementById('results').innerHTML = `
+                <div class="space-y-2 text-sm">
+                    <div><strong>1. Остача:</strong> ${a} % ${b} = ${remainder}</div>
+                    <div><strong>2. Перевірка нуля:</strong> ${remainder} === 0 = ${isZero}</div>
+                    <div><strong>3. Масив:</strong> [${arr.join(', ')}] з керуючими послідовностями %d, %s</div>
+                </div>
+            `;
+        }
+        runConsoleTests();
+    </script>
+    
+    <button onclick="history.back()"
+        class="fixed bottom-6 right-6 w-16 h-16 rounded-full bg-blue-600 text-white flex items-center justify-center shadow-lg hover:bg-blue-700 transition">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" class="w-8 h-8">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        </svg>
+    </button>
+</body>
+</html>
