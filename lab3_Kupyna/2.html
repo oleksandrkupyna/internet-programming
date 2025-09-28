@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Завдання 2 – Екранна клавіатура</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen p-4">
+  <div class="bg-white rounded-lg shadow p-6 w-full max-w-3xl text-center">
+    <h1 class="text-2xl font-bold text-blue-600 mb-4">Екранна клавіатура</h1>
+    <textarea id="display" rows="3" class="border rounded w-full p-2 mb-4"></textarea>
+    <div id="keyboard" class="space-y-2"></div>
+    <button onclick="clean()" class="mt-4 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded">Очистити поле</button>
+  </div>
+    <button onclick="
+        if (window.history.length > 1) {
+            history.back();
+        } else {
+            window.location.href='../'; 
+        }"
+    class="fixed bottom-6 right-6 w-16 h-16 rounded-full bg-blue-600 text-white flex items-center justify-center shadow-lg hover:bg-blue-700 transition">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" class="w-8 h-8">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+    </svg>
+    </button>
+  <script>
+    const digits = ['1','2','3','4','5','6','7','8','9','0'];
+    const row1 = ['й','ц','у','к','е','н','г','ш','щ','з','х','ї'];
+    const row2 = ['ф','і','в','а','п','р','о','л','д','ж','є'];
+    const row3 = ['я','ч','с','м','и','т','ь','б','ю','\''];
+    const row4 = ['Пробіл'];
+
+    const keyboardDiv = document.getElementById('keyboard');
+    const display = document.getElementById('display');
+
+    function createRow(keys, className = 'bg-gray-200 hover:bg-gray-300 p-2 rounded w-8', isSpace = false) {
+      const row = document.createElement('div');
+      row.className = 'flex flex-wrap gap-2 justify-center';
+      keys.forEach(key => {
+        const btn = document.createElement('button');
+        btn.textContent = key;
+        btn.className = className;
+        btn.onclick = () => {
+          const cursorPos = display.selectionStart;
+          const textBefore = display.value.substring(0, cursorPos);
+          const textAfter = display.value.substring(display.selectionEnd);
+          display.value = textBefore + (isSpace ? ' ' : key) + textAfter;
+          display.focus();
+          display.setSelectionRange(cursorPos + 1, cursorPos + 1);
+        };
+        row.appendChild(btn);
+      });
+      return row;
+    }
+
+    function createKeyboard() {
+      keyboardDiv.appendChild(createRow(digits));
+      keyboardDiv.appendChild(createRow(row1));
+      keyboardDiv.appendChild(createRow(row2));
+      keyboardDiv.appendChild(createRow(row3));
+      keyboardDiv.appendChild(createRow(row4, 'bg-gray-200 hover:bg-gray-300 p-2 rounded w-48', true));
+    }
+
+    function clean() {
+      display.value = '';
+      display.focus();
+    }
+    createKeyboard();
+    display.focus();
+  </script>
+</body>
+</html>

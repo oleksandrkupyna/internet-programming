@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Завдання 5 – Перевірка арифметики</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen p-4">
+  <div class="bg-white rounded-lg shadow p-6 w-full max-w-md text-center">
+    <h1 class="text-2xl font-bold text-blue-600 mb-4">Арифметичні приклади</h1>
+    <p id="score" class="mb-2">Рахунок: 0/0</p>
+    <p id="task" class="mb-4 text-lg font-medium"></p>
+    <input id="answer" class="border rounded p-2 w-full mb-2" placeholder="Ваша відповідь">
+    <p id="result" class="mb-2"></p>
+    <div class="flex justify-between">
+      <button onclick="checkAnswer()" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded">Перевірити</button>
+      <button onclick="nextTask()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">Наступне</button>
+    </div>
+  </div>
+    <button onclick="
+        if (window.history.length > 1) {
+            history.back();
+        } else {
+            window.location.href='../'; 
+        }"
+    class="fixed bottom-6 right-6 w-16 h-16 rounded-full bg-blue-600 text-white flex items-center justify-center shadow-lg hover:bg-blue-700 transition">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" class="w-8 h-8">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+    </svg>
+    </button>
+  <script>
+    let correct=0,total=0,a,b,op,result;
+
+    function generateTask(){
+      a=Math.floor(Math.random()*10);
+      b=Math.floor(Math.random()*10);
+      const ops=['+','-','*','/'];
+      op=ops[Math.floor(Math.random()*4)];
+      if(op==='/') result=a/b; else if(op==='*') result=a*b; else if(op==='-') result=a-b; else result=a+b;
+      document.getElementById('task').textContent=`${a} ${op} ${b} = ?`;
+      document.getElementById('answer').value='';
+      document.getElementById('result').textContent='';
+    }
+    function checkAnswer(){
+      const ans=parseFloat(document.getElementById('answer').value);
+      total++;
+      if(Math.abs(ans-result)<0.001){
+        correct++;
+        document.getElementById('result').textContent='Правильно!';
+      } else {
+        document.getElementById('result').textContent='НЕправильно, правильна відповідь: '+result;
+      }
+      document.getElementById('score').textContent=`Рахунок: ${correct}/${total}`;
+    }
+    function nextTask(){
+      generateTask();
+    }
+    generateTask();
+  </script>
+</body>
+</html>

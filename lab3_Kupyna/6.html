@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Завдання 6 – Дерево</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen p-4">
+  <div class="bg-white rounded-lg shadow p-6 w-full max-w-md">
+    <h1 class="text-2xl font-bold text-blue-600 mb-4 text-center">Дерево ієрархії</h1>
+    <div id="tree"></div>
+  </div>
+    <button onclick="
+        if (window.history.length > 1) {
+            history.back();
+        } else {
+            window.location.href='../'; 
+        }"
+    class="fixed bottom-6 right-6 w-16 h-16 rounded-full bg-blue-600 text-white flex items-center justify-center shadow-lg hover:bg-blue-700 transition">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" class="w-8 h-8">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+    </svg>
+    </button>
+  <script>
+    const data={
+      'fruits':['apple','pineapple','appricot','pear','lemon'],
+      'vegetables':['potatoes','beetroot','carrots','pear']
+    };
+
+    function buildTree(){
+      let html='';
+      for(let category in data){
+        html+=`<div>
+          <a href="javascript:toggle('${category}')"
+            class="text-blue-600 underline">${category}</a>
+          <ul id="${category}" class="ml-4 list-disc">
+            ${data[category].map(i=>`<li>${i}</li>`).join('')}
+          </ul>
+        </div>`;
+      }
+      document.getElementById('tree').innerHTML=html;
+    }
+
+    function toggle(id){
+      const ul=document.getElementById(id);
+      ul.style.display=ul.style.display==='none'?'block':'none';
+    }
+
+    buildTree();
+  </script>
+</body>
+</html>

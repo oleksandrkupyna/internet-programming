@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Завдання 1 – Площа паралелограма</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen p-4">
+  <div class="bg-white rounded-lg shadow p-6 w-full max-w-md">
+    <h1 class="text-2xl font-bold text-blue-600 mb-4 text-center">Розрахунок площі паралелограма</h1>
+
+    <h2 class="text-lg font-semibold mb-2">Варіант 1: Основа + Висота</h2>
+    <label class="block mb-1">Основа (a):</label>
+    <input id="a" type="number" class="border rounded p-2 w-full mb-2" placeholder="Введіть основу">
+    <label class="block mb-1">Висота (h):</label>
+    <input id="h" type="number" class="border rounded p-2 w-full mb-4" placeholder="Введіть висоту">
+
+    <h2 class="text-lg font-semibold mb-2">Варіант 2: Дві сторони + Кут</h2>
+    <label class="block mb-1">Сторона a:</label>
+    <input id="a2" type="number" class="border rounded p-2 w-full mb-2" placeholder="Введіть сторону a">
+    <label class="block mb-1">Сторона b:</label>
+    <input id="b2" type="number" class="border rounded p-2 w-full mb-2" placeholder="Введіть сторону b">
+    <label class="block mb-1">Кут між сторонами (градуси):</label>
+    <input id="angle" type="number" class="border rounded p-2 w-full mb-4" placeholder="Введіть кут">
+
+    <p id="result1" class="text-center text-lg font-medium text-gray-700">Площа (варіант 1): =</p>
+    <p id="result2" class="text-center text-lg font-medium text-gray-700">Площа (варіант 2): =</p>
+  </div>
+    <button onclick="
+        if (window.history.length > 1) {
+            history.back();
+        } else {
+            window.location.href='../'; 
+        }"
+    class="fixed bottom-6 right-6 w-16 h-16 rounded-full bg-blue-600 text-white flex items-center justify-center shadow-lg hover:bg-blue-700 transition">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" class="w-8 h-8">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+    </svg>
+    </button>
+
+  <script>
+    const aInput = document.getElementById('a');
+    const hInput = document.getElementById('h');
+    const a2Input = document.getElementById('a2');
+    const b2Input = document.getElementById('b2');
+    const angleInput = document.getElementById('angle');
+    const res1 = document.getElementById('result1');
+    const res2 = document.getElementById('result2');
+
+    function calcArea1() {
+      const a = parseFloat(aInput.value);
+      const h = parseFloat(hInput.value);
+      if (!isNaN(a) && !isNaN(h)) {
+        res1.textContent = 'Площа (варіант 1): = ' + (a*h).toFixed(2);
+      } else {
+        res1.textContent = 'Площа (варіант 1): = ';
+      }
+    }
+
+    function calcArea2() {
+      const a = parseFloat(a2Input.value);
+      const b = parseFloat(b2Input.value);
+      const angle = parseFloat(angleInput.value);
+      if (!isNaN(a) && !isNaN(b) && !isNaN(angle)) {
+        const rad = angle * Math.PI/180;
+        res2.textContent = 'Площа (варіант 2): = ' + (a*b*Math.sin(rad)).toFixed(2);
+      } else {
+        res2.textContent = 'Площа (варіант 2): = ';
+      }
+    }
+
+    [aInput,hInput].forEach(i=>i.addEventListener('input',calcArea1));
+    [a2Input,b2Input,angleInput].forEach(i=>i.addEventListener('input',calcArea2));
+  </script>
+</body>
+</html>
