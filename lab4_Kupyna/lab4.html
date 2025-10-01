@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Лабораторна робота №4 – Тестування</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-800 font-sans p-6">
+  <div class="max-w-4xl mx-auto">
+    <header class="text-center mb-8">
+      <h1 class="text-3xl font-bold text-blue-600">Лабораторна робота №4</h1>
+      <h2 class="text-lg text-gray-600">Купина Олександр Васильович | ІПЗ-23</h2>
+      <p class="text-gray-500">Опрацювання даних форми. Пошук елементів в DOM</p>
+    </header>
+
+    <form id="testForm" class="bg-white rounded-lg shadow p-6 mb-6">
+      <h3 class="text-xl font-semibold mb-4">Тестування (7 запитань)</h3>
+
+      <div class="mb-6 p-4 bg-gray-50 rounded">
+        <p class="font-medium mb-2">1. Який тег використовується для створення посилання в HTML?</p>
+        <label class="block mb-1"><input type="radio" name="q1" value="0"> &lt;link&gt;</label>
+        <label class="block mb-1"><input type="radio" name="q1" value="1"> &lt;a&gt;</label>
+        <label class="block mb-1"><input type="radio" name="q1" value="0"> &lt;href&gt;</label>
+        <label class="block mb-1"><input type="radio" name="q1" value="0"> &lt;url&gt;</label>
+      </div>
+
+      <div class="mb-6 p-4 bg-gray-50 rounded">
+        <p class="font-medium mb-2">2. Який метод масиву додає елемент в кінець?</p>
+        <label class="block mb-1"><input type="radio" name="q2" value="0"> add()</label>
+        <label class="block mb-1"><input type="radio" name="q2" value="1"> push()</label>
+        <label class="block mb-1"><input type="radio" name="q2" value="0"> append()</label>
+        <label class="block mb-1"><input type="radio" name="q2" value="0"> insert()</label>
+      </div>
+
+      <div class="mb-6 p-4 bg-gray-50 rounded">
+        <p class="font-medium mb-2">3. Оберіть мови програмування:</p>
+        <label class="block mb-1"><input type="checkbox" name="q3" value="1"> JavaScript</label>
+        <label class="block mb-1"><input type="checkbox" name="q3" value="1"> Python</label>
+        <label class="block mb-1"><input type="checkbox" name="q3" value="0"> HTML</label>
+        <label class="block mb-1"><input type="checkbox" name="q3" value="0"> CSS</label>
+      </div>
+
+      <div class="mb-6 p-4 bg-gray-50 rounded">
+        <p class="font-medium mb-2">4. Оберіть HTTP методи для отримання даних:</p>
+        <label class="block mb-1"><input type="checkbox" name="q4" value="1"> GET</label>
+        <label class="block mb-1"><input type="checkbox" name="q4" value="0"> POST</label>
+        <label class="block mb-1"><input type="checkbox" name="q4" value="1"> HEAD</label>
+        <label class="block mb-1"><input type="checkbox" name="q4" value="0"> DELETE</label>
+      </div>
+
+      <div class="mb-6 p-4 bg-gray-50 rounded">
+        <p class="font-medium mb-2">5. Який оператор використовується для строгого порівняння в JavaScript?</p>
+        <select name="q5" class="border rounded p-2 w-full">
+          <option value="">Оберіть варіант</option>
+          <option value="0">==</option>
+          <option value="1">===</option>
+          <option value="0">=</option>
+          <option value="0">!=</option>
+        </select>
+      </div>
+
+      <div class="mb-6 p-4 bg-gray-50 rounded">
+        <p class="font-medium mb-2">6. Оберіть фреймворки JavaScript (Ctrl+Click):</p>
+        <select name="q6" multiple size="4" class="border rounded p-2 w-full">
+          <option value="1">React</option>
+          <option value="1">Vue</option>
+          <option value="0">Django</option>
+          <option value="0">Flask</option>
+        </select>
+      </div>
+
+      <div class="mb-6 p-4 bg-gray-50 rounded">
+        <p class="font-medium mb-2">7. Скільки буде 10 + 5?</p>
+        <input type="text" name="q7" class="border rounded p-2 w-full" placeholder="Введіть число">
+      </div>
+
+      <button type="button" onclick="checkTest()" class="w-full bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded font-medium">
+        Завершити тестування
+      </button>
+    </form>
+
+    <div id="results" class="hidden bg-white rounded-lg shadow p-6">
+      <h3 class="text-xl font-semibold mb-4">Результати тестування</h3>
+      <div class="overflow-x-auto">
+        <table class="w-full border-collapse text-sm">
+          <thead>
+            <tr class="bg-gray-200">
+              <th class="border p-2">№</th>
+              <th class="border p-2">Запитання</th>
+              <th class="border p-2">Ваша відповідь</th>
+              <th class="border p-2">Правильна відповідь</th>
+              <th class="border p-2">Бали</th>
+            </tr>
+          </thead>
+          <tbody id="resultsTable"></tbody>
+        </table>
+      </div>
+      <p id="totalScore" class="text-xl font-bold text-center mt-4 text-blue-600"></p>
+    </div>
+  </div>
+<button onclick="window.location.href='../'" class="fixed bottom-6 right-6 w-16 h-16 rounded-full bg-blue-600 text-white flex items-center justify-center shadow-lg hover:bg-blue-700 transition">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" class="w-8 h-8">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+    </svg>
+</button>
+    <script>
+        const data = [
+        {q:'Який тег використовується для створення посилання в HTML?', correct:'<a>', type:'radio'},
+        {q:'Який метод масиву додає елемент в кінець?', correct:'push()', type:'radio'},
+        {q:'Оберіть мови програмування:', correct:['JavaScript','Python'], type:'check'},
+        {q:'Оберіть HTTP методи для отримання даних:', correct:['GET','HEAD'], type:'check'},
+        {q:'Який оператор використовується для строгого порівняння в JavaScript?', correct:'===', type:'select'},
+        {q:'Оберіть фреймворки JavaScript:', correct:['React','Vue'], type:'selectm'},
+        {q:'Скільки буде 10 + 5?', correct:'15', type:'text'}
+        ];
+
+        function checkTest() {
+        const form = document.getElementById('testForm');
+        let results = [];
+        let total = 0;
+
+        let ans = getRadio(form.q1);
+        let s = ans.val === 1 ? 1 : 0;
+        results.push({q:data[0].q, a:ans.txt, c:data[0].correct, s:s});
+        total += s;
+
+        ans = getRadio(form.q2);
+        s = ans.val === 1 ? 1 : 0;
+        results.push({q:data[1].q, a:ans.txt, c:data[1].correct, s:s});
+        total += s;
+
+        ans = getCheckbox(form.q3);
+        s = scoreCheckbox(ans.correct, ans.total);
+        results.push({q:data[2].q, a:ans.txt.join(', ') || 'Не обрано', c:data[2].correct.join(', '), s:s});
+        total += s;
+
+        ans = getCheckbox(form.q4);
+        s = scoreCheckbox(ans.correct, ans.total);
+        results.push({q:data[3].q, a:ans.txt.join(', ') || 'Не обрано', c:data[3].correct.join(', '), s:s});
+        total += s;
+
+        ans = getSelect(form.q5);
+        s = ans.val === 1 ? 1 : 0;
+        results.push({q:data[4].q, a:ans.txt, c:data[4].correct, s:s});
+        total += s;
+
+        ans = getSelectMultiple(form.q6);
+        s = scoreCheckbox(ans.correct, ans.total);
+        results.push({q:data[5].q, a:ans.txt.join(', ') || 'Не обрано', c:data[5].correct.join(', '), s:s});
+        total += s;
+
+        let txt = form.q7.value.trim();
+        s = txt === '15' ? 1 : 0;
+        results.push({q:data[6].q, a:txt || 'Не введено', c:'15', s:s});
+        total += s;
+
+        displayResults(results, total);
+        }
+
+        function getRadio(inputs) {
+        for (let i = 0; i < inputs.length; i++) {
+            if (inputs[i].checked) {
+            return {val: parseFloat(inputs[i].value), txt: inputs[i].parentElement.textContent.trim()};
+            }
+        }
+        return {val: 0, txt: 'Не обрано'};
+        }
+
+        function getCheckbox(inputs) {
+        let correct = 0, total = 0, txt = [];
+        for (let i = 0; i < inputs.length; i++) {
+            if (inputs[i].checked) {
+            total++;
+            txt.push(inputs[i].parentElement.textContent.trim());
+            if (parseFloat(inputs[i].value) === 1) correct++;
+            }
+        }
+        return {correct, total, txt};
+        }
+
+        function getSelect(sel) {
+        if (sel.value !== '') {
+            return {val: parseFloat(sel.value), txt: sel.options[sel.selectedIndex].text};
+        }
+        return {val: 0, txt: 'Не обрано'};
+        }
+
+        function getSelectMultiple(sel) {
+        let correct = 0, total = 0, txt = [];
+        for (let i = 0; i < sel.options.length; i++) {
+            if (sel.options[i].selected) {
+            total++;
+            txt.push(sel.options[i].text);
+            if (parseFloat(sel.options[i].value) === 1) correct++;
+            }
+        }
+        return {correct, total, txt};
+        }
+
+        function scoreCheckbox(correct, total) {
+        if (total >= 3) return 0;
+        if (total === 2 && correct === 2) return 2;
+        if (total === 2 && correct === 1) return 1;
+        if (total === 1 && correct === 1) return 1;
+        return 0;
+        }
+
+        function displayResults(results, total) {
+        const tbody = document.getElementById('resultsTable');
+        tbody.innerHTML = '';
+        
+        results.forEach((r, i) => {
+            const isWrong = r.s === 0 || (i >= 2 && i <= 3 && r.s < 2) || (i === 5 && r.s < 2);
+            const row = document.createElement('tr');
+            row.className = isWrong ? 'bg-red-50' : 'bg-green-50';
+            row.innerHTML = `
+            <td class="border p-2 text-center">${i + 1}</td>
+            <td class="border p-2">${r.q}</td>
+            <td class="border p-2">${r.a}</td>
+            <td class="border p-2 font-medium">${r.c}</td>
+            <td class="border p-2 text-center font-bold">${r.s}</td>
+            `;
+            tbody.appendChild(row);
+        });
+
+        let comment = '';
+        if (total === 10) comment = 'Відмінно!';
+        else if (total >= 7) comment = 'Дуже добре!';
+        else if (total >= 5) comment = 'Непогано';
+        else if (total >= 3) comment = 'Задовільно';
+        else comment = 'Незадовільно';
+        
+        document.getElementById('totalScore').innerHTML = `Загальний бал: ${total} / 10 <br><span class="text-lg text-gray-700">${comment}</span>`;
+        document.getElementById('results').classList.remove('hidden');
+        document.getElementById('results').scrollIntoView({behavior:'smooth'});
+        }
+  </script>
+</body>
+</html>
