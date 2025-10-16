@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Завдання 2-3</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      transition: background-color 0.3s, color 0.3s;
+      padding-top: 60px;
+    }
+
+    body.dark {
+      background-color: #1a1a1a;
+      color: #e0e0e0;
+    }
+
+    body.dark .bg-gray-100 { background-color: #2a2a2a; }
+    body.dark .bg-white { background-color: #333; color: #e0e0e0; }
+    body.dark .text-gray-800 { color: #e0e0e0; }
+    body.dark .text-gray-700 { color: #c0c0c0; }
+
+    nav {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      background: rgb(67, 105, 231);
+      z-index: 1001;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    nav .nav-links {
+      display: flex;
+      gap: 20px;
+    }
+
+    nav .nav-links a {
+      text-decoration: none;
+      color: white;
+      font-weight: 500;
+    }
+
+    nav .burger {
+      display: none;
+      flex-direction: column;
+      gap: 4px;
+      cursor: pointer;
+    }
+
+    nav .burger div {
+      width: 25px;
+      height: 3px;
+      background-color: white;
+    }
+
+    @media (max-width: 768px) {
+      nav .nav-links {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background: rgb(67, 105, 231);
+        flex-direction: column;
+        width: 100%;
+        padding: 0;
+        display: none;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      }
+      nav .nav-links a {
+        padding: 15px 20px;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+      }
+      nav .nav-links.active {
+        display: flex;
+      }
+      nav .burger {
+        display: flex;
+      }
+    }
+
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: rgba(0,0,0,0.5);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .modal-overlay.show { display: flex; }
+
+    .modal {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      max-width: 400px;
+      width: 90%;
+      position: relative;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+
+    body.dark .modal { background: #2a2a2a; color: #e0e0e0; }
+
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 24px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body class="bg-gray-100 text-gray-800 font-sans min-h-screen flex items-center justify-center p-6">
+  <nav>
+    <div class="nav-links" id="navLinks">
+      <a href="lab5.html">Головна</a>
+      <a href="2.html">Завдання №1</a>
+      <a href="#">Про мене</a>
+    </div>
+    <div class="burger" id="burger">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </nav>
+
+  <div class="max-w-2xl w-full">
+    <div class="bg-white rounded-2xl shadow-xl p-8">
+      <h1 class="text-4xl font-bold text-blue-600 mb-3 text-center">Привіт!</h1>
+      <p class="text-gray-600 text-center mb-8">
+        Демонстрація перемикача теми та модального вікна з адаптацією для мобільного.
+      </p>
+
+      <div class="grid md:grid-cols-2 gap-4">
+        <button onclick="toggleTheme()" class="bg-gradient-to-r from-purple-500 to-indigo-600 hover:from-purple-600 hover:to-indigo-700 text-white px-8 py-4 rounded-xl font-semibold transition shadow-lg transform hover:scale-105">
+          Змінити тему
+        </button>
+
+        <button onclick="showModal()" class="bg-gradient-to-r from-pink-500 to-rose-600 hover:from-pink-600 hover:to-rose-700 text-white px-8 py-4 rounded-xl font-semibold transition shadow-lg transform hover:scale-105">
+          Показати повідомлення
+        </button>
+      </div>
+    </div>
+  </div>
+  <div id="modalOverlay" class="modal-overlay" onclick="closeModalOutside(event)">
+    <div class="modal">
+      <span class="close-btn" onclick="hideModal()">&times;</span>
+      <h2 class="text-2xl font-bold mb-4">Модальне вікно</h2>
+      <p class="mb-6">Це модальне вікно.</p>
+      <button onclick="hideModal()" class="w-full bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold transition">
+        Закрити
+      </button>
+    </div>
+  </div>
+
+  <button onclick="window.location.href='lab5.html'" class="fixed bottom-6 right-6 w-16 h-16 rounded-full bg-blue-600 text-white flex items-center justify-center shadow-lg hover:bg-blue-700 transition">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" class="w-8 h-8">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+    </svg>
+  </button>
+
+  <script>
+    function toggleTheme() {
+      document.body.classList.toggle('dark');
+      const isDark = document.body.classList.contains('dark');
+      const btn = event.target;
+      btn.textContent = isDark ? '☀️ Світла тема' : '🌙 Темна тема';
+    }
+
+    function showModal() {
+      document.getElementById('modalOverlay').classList.add('show');
+    }
+
+    function hideModal() {
+      document.getElementById('modalOverlay').classList.remove('show');
+    }
+
+    function closeModalOutside(e) {
+      if (e.target.id === 'modalOverlay') hideModal();
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') hideModal();
+    });
+
+    const burger = document.getElementById('burger');
+    const navLinks = document.getElementById('navLinks');
+    burger.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+    });
+  </script>
+</body>
+</html>

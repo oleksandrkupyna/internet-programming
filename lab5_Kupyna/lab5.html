@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Лабораторна робота №5 – Купина Олександр Васильович</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-800 font-sans">
+  <div class="max-w-5xl mx-auto p-6">
+    <header class="text-center mb-8">
+      <h1 class="text-3xl font-bold text-blue-600">Лабораторна робота №5</h1>
+      <h2 class="text-lg text-gray-600">Купина Олександр Васильович | ІПЗ-23</h2>
+      <p class="text-gray-500">Стилізація та модифікація елементів. Створення вкладок за допомогою CSS і JavaScript</p>
+    </header>
+
+    <section>
+      <h3 class="text-2xl font-semibold mb-4 text-center">Завдання</h3>
+      <ul class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <li onclick="window.location.href='1.html'" 
+            class="block bg-white rounded-lg p-4 shadow hover:bg-gray-50 cursor-pointer transition">
+          <h4 class="text-lg font-medium text-blue-700 mb-2">Завдання 2-3</h4>
+          <p class="text-base text-gray-700">
+            Перемикач теми (Dark/Light) + Модальне вікно (Popup) + Адаптивне бургер-меню.
+          </p>
+        </li>
+
+        <li onclick="window.location.href='2.html'" 
+            class="block bg-white rounded-lg p-4 shadow hover:bg-gray-50 cursor-pointer transition">
+          <h4 class="text-lg font-medium text-blue-700 mb-2">Завдання 4</h4>
+          <p class="text-base text-gray-700">
+            Анімоване меню
+          </p>
+        </li>
+      </ul>
+    </section>
+
+    <button onclick="window.location.href='../index.html'" class="fixed bottom-6 right-6 w-16 h-16 rounded-full bg-blue-600 text-white flex items-center justify-center shadow-lg hover:bg-blue-700 transition">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" class="w-8 h-8">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+      </svg>
+    </button>
+  </div>
+</body>
+</html>
