@@ -55,44 +55,36 @@
     </form>
   </div>
 
-<button onclick="window.location.href='lab6.html'" class="fixed bottom-6 right-6 w-16 h-16 rounded-full bg-blue-600 text-white flex items-center justify-center shadow-lg hover:bg-blue-700 transition">
+<button onclick="window.location.href='lab5.html'" class="fixed bottom-6 right-6 w-16 h-16 rounded-full bg-blue-600 text-white flex items-center justify-center shadow-lg hover:bg-blue-700 transition">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" class="w-8 h-8">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
     </svg>
-  </button>
+  </button> 
 
-  <script>
+    <script>
     const fields = {
-      email: /^[a-z0-9._%+-]+@pnu\.edu\.ua$/i,
-      name: /^[A-ZА-ЯІЇЄҐ][a-zа-яіїєґ']+$/,
-      surname: /^[A-ZА-ЯІЇЄҐ]+$/,
-      login: /^[A-Za-z]+$/,
-      password: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[_\-!@#$%^&*]).{8,}$/,
-      post: /^\d{5}$/
+        email: /^[a-z0-9._%+-]+@pnu\.edu\.ua$/i,
+        name: /^[A-ZА-ЯІЇЄҐ][a-zа-яіїєґ']+$/,
+        surname: /^[A-ZА-ЯІЇЄҐ]+$/,
+        login: /^[A-Za-z]+$/,
+        password: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[_\-!@#$%^&*]).{8,}$/,
+        post: /^\d{5}$/
     };
 
     document.getElementById('checkBtn').addEventListener('click', () => {
-      for (let key in fields) {
+        for (let key in fields) {
         const input = document.getElementById(key);
-        const icon = input.nextElementSibling;
         const isValid = fields[key].test(input.value.trim());
 
-        input.classList.remove('border-red-500','border-green-500','bg-red-50','bg-green-50');
-        icon.textContent = '';
+        input.classList.remove('border-red-500', 'border-green-500', 'bg-red-50', 'bg-green-50');
 
         if (isValid) {
-          input.classList.add('border-green-500','bg-green-50');
-          icon.textContent = '✔';
-          icon.classList.add('text-green-600');
-          icon.classList.remove('text-red-600');
+            input.classList.add('border-green-500', 'bg-green-50');
         } else {
-          input.classList.add('border-red-500','bg-red-50');
-          icon.textContent = '✖';
-          icon.classList.add('text-red-600');
-          icon.classList.remove('text-green-600');
+            input.classList.add('border-red-500', 'bg-red-50');
         }
-      }
+        }
     });
-  </script>
+    </script>
 </body>
 </html>
