@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Завдання 2</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen p-4">
+
+  <div class="bg-white rounded-lg shadow-lg p-8 w-full max-w-2xl">
+    <h1 class="text-2xl font-bold text-blue-600 mb-6 text-center">Перевірка введених даних</h1>
+
+    <form id="checkForm" class="space-y-4">
+      <div class="relative">
+        <label class="block font-medium mb-1">Email (має бути @pnu.edu.ua):</label>
+        <input id="email" placeholder="user@pnu.edu.ua" class="border rounded p-2 w-full pr-10">
+        <span class="absolute right-3 top-10 text-2xl"></span>
+      </div>
+
+      <div class="relative">
+        <label class="block font-medium mb-1">Ім’я (з великої літери):</label>
+        <input id="name" placeholder="Олександр" class="border rounded p-2 w-full pr-10">
+        <span class="absolute right-3 top-10 text-2xl"></span>
+      </div>
+
+      <div class="relative">
+        <label class="block font-medium mb-1">Прізвище (великі літери):</label>
+        <input id="surname" placeholder="КУПИНА" class="border rounded p-2 w-full pr-10">
+        <span class="absolute right-3 top-10 text-2xl"></span>
+      </div>
+
+      <div class="relative">
+        <label class="block font-medium mb-1">Логін (лише латиниця):</label>
+        <input id="login" placeholder="MyLogin" class="border rounded p-2 w-full pr-10">
+        <span class="absolute right-3 top-10 text-2xl"></span>
+      </div>
+
+      <div class="relative">
+        <label class="block font-medium mb-1">Пароль (мін. 8 символів, літера, цифра, спецсимвол):</label>
+        <input id="password" type="password" placeholder="Password1!" class="border rounded p-2 w-full pr-10">
+        <span class="absolute right-3 top-10 text-2xl"></span>
+      </div>
+
+      <div class="relative">
+        <label class="block font-medium mb-1">Поштовий індекс (5 цифр):</label>
+        <input id="post" placeholder="12345" class="border rounded p-2 w-full pr-10">
+        <span class="absolute right-3 top-10 text-2xl"></span>
+      </div>
+
+      <button type="button" id="checkBtn"
+              class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition">
+        Перевірити
+      </button>
+    </form>
+  </div>
+
+  <button onclick="window.location.href='lab6.html'"
+          class="fixed bottom-8 right-8 w-14 h-14 rounded-full bg-blue-600 text-white shadow-lg hover:bg-blue-700 transition">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" class="w-7 h-7 mx-auto" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+    </svg>
+  </button>
+
+  <script>
+    const fields = {
+      email: /^[a-z0-9._%+-]+@pnu\.edu\.ua$/i,
+      name: /^[A-ZА-ЯІЇЄҐ][a-zа-яіїєґ']+$/,
+      surname: /^[A-ZА-ЯІЇЄҐ]+$/,
+      login: /^[A-Za-z]+$/,
+      password: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[_\-!@#$%^&*]).{8,}$/,
+      post: /^\d{5}$/
+    };
+
+    document.getElementById('checkBtn').addEventListener('click', () => {
+      for (let key in fields) {
+        const input = document.getElementById(key);
+        const icon = input.nextElementSibling;
+        const isValid = fields[key].test(input.value.trim());
+
+        input.classList.remove('border-red-500','border-green-500','bg-red-50','bg-green-50');
+        icon.textContent = '';
+
+        if (isValid) {
+          input.classList.add('border-green-500','bg-green-50');
+          icon.textContent = '✔';
+          icon.classList.add('text-green-600');
+          icon.classList.remove('text-red-600');
+        } else {
+          input.classList.add('border-red-500','bg-red-50');
+          icon.textContent = '✖';
+          icon.classList.add('text-red-600');
+          icon.classList.remove('text-green-600');
+        }
+      }
+    });
+  </script>
+</body>
+</html>
