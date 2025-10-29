@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <title>Завдання 10</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-8">
+  <div class="max-w-2xl mx-auto bg-white p-6 rounded-lg shadow">
+    <h1 class="text-2xl font-bold text-blue-600 text-center mb-6">10. Повторюваний підрядок</h1>
+    <input id="input10" placeholder="ABCCABABCC" class="border p-2 w-full mb-2 rounded font-mono">
+    <button onclick="task10()" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Знайти</button>
+    <p id="result10" class="text-green-600 mt-2"></p>
+  </div>
+  <button onclick="window.location.href='lab7.html'" class="fixed bottom-6 right-6 w-16 h-16 rounded-full bg-blue-600 text-white flex items-center justify-center shadow-lg hover:bg-blue-700 transition">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" class="w-8 h-8">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+    </svg>
+  </button>
+  <script>
+    function task10() {
+      let s = document.getElementById('input10').value;
+      for (let l = 1; l <= s.length; l++)
+        for (let i = 0; i <= s.length - l; i++) {
+          let sub = s.substring(i, i + l);
+          if (s.indexOf(sub, i + 1) !== -1) {
+            document.getElementById('result10').textContent = 'Підрядок: "' + sub + '"';
+            return;
+          }
+        }
+      document.getElementById('result10').textContent = 'Нема повторів';
+    }
+  </script>
+</body>
+</html>
