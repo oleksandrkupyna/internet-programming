@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Завдання 6</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-8">
+  <div class="max-w-md mx-auto bg-white p-6 rounded-lg shadow">
+    <h1 class="text-2xl font-bold text-blue-600 text-center mb-4">Movie / Series</h1>
+
+    <input id="mt" placeholder="Назва фільму" class="border p-2 w-full mb-2 rounded">
+    <input id="md" placeholder="Режисер" class="border p-2 w-full mb-2 rounded">
+    <input id="mdr" type="number" placeholder="Тривалість (хв)" class="border p-2 w-full mb-2 rounded">
+    <button onclick="playMovie()" class="bg-blue-600 text-white px-4 py-2 rounded w-full mb-4">Фільм</button>
+    <p id="mr" class="text-green-600 mt-4"></p>
+
+    <input id="st" placeholder="Назва серіалу" class="border p-2 w-full mb-2 rounded">
+    <input id="sd" placeholder="Режисер" class="border p-2 w-full mb-2 rounded">
+    <input id="sdur" type="number" placeholder="Тривалість епізоду (хв)" class="border p-2 w-full mb-2 rounded">
+    <input id="se" type="number" placeholder="Кількість епізодів" class="border p-2 w-full mb-2 rounded">
+    <input id="ss" type="number" placeholder="Сезон" class="border p-2 w-full mb-2 rounded">
+    <button onclick="showSeries()" class="bg-blue-600 text-white px-4 py-2 rounded w-full mb-4">Серіал</button>
+    <button onclick="nextEp()" class="bg-green-600 text-white px-4 py-2 rounded w-full mb-4">Наступний епізод</button>
+    <p id="sr" class="text-green-600 mt-4"></p>
+    
+    <button onclick="clearFields()" class="bg-red-600 text-white px-4 py-2 rounded w-full">Очистити поля</button>
+  </div>
+  <button onclick="window.location.href='lab8.html'" class="fixed bottom-6 right-6 w-16 h-16 rounded-full bg-blue-600 text-white flex items-center justify-center shadow-lg hover:bg-blue-700 transition">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" class="w-8 h-8">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+    </svg>
+  </button>
+  <script>
+    class Movie {
+      constructor(title, director, duration) {
+        this.title = title;
+        this.director = director;
+        this.duration = duration;
+      }
+      play() {
+        return `Фільм: ${this.title} (Режисер: ${this.director}, Тривалість: ${this.duration} хв)`;
+      }
+    }
+    class Series extends Movie {
+      constructor(title, director, duration, episodes, season) {
+        super(title, director, duration);
+        this.episodes = episodes;
+        this.season = season;
+        this.currentEpisode = 1;
+      }
+      play() {
+        return `Серіал: ${this.title} (Сезон: ${this.season}, Епізод: ${this.currentEpisode})`;
+      }
+      next() {
+        if (this.currentEpisode < this.episodes) {
+          this.currentEpisode++;
+          return `Епізод ${this.currentEpisode}`;
+        } else {
+          return "Кінець сезону!";
+        }
+      }
+    }
+    let series;
+    function playMovie() {
+      const movie = new Movie(mt.value, md.value, mdr.value);
+      mr.textContent = movie.play();
+    }
+    function showSeries() {
+      series = new Series(st.value, sd.value, sdur.value, se.value, ss.value);
+      sr.textContent = series.play();
+    }
+
+    function nextEp() {
+      if (series) {
+        sr.innerHTML = series.next();
+      }
+    }
+    function clearFields() {
+      document.querySelectorAll("input").forEach(input => input.value = "");
+      mr.textContent = "";
+      sr.textContent = "";
+    }
+  </script>
+</body>
+</html>

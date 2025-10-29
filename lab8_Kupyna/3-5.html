@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Завдання 3-5</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-8">
+  <div class="max-w-md mx-auto bg-white p-6 rounded-lg shadow">
+    <h1 class="text-2xl font-bold text-blue-600 text-center mb-4">Класи</h1>
+
+    <div class="mb-6">
+      <input id="b" placeholder="Бренд" class="border p-2 w-full mb-2 rounded">
+      <input id="m" placeholder="Модель" class="border p-2 w-full mb-2 rounded">
+      <input id="y" type="number" placeholder="Рік" class="border p-2 w-full mb-2 rounded">
+      <button onclick="carInfo()" class="bg-blue-600 text-white px-4 py-2 rounded w-full">Car</button>
+      <p id="r3" class="text-green-600 mt-4"></p>
+    </div>
+
+    <div class="mb-6">
+      <input id="bb" placeholder="Бренд" class="border p-2 w-full mb-2 rounded">
+      <input id="mm" placeholder="Модель" class="border p-2 w-full mb-2 rounded">
+      <input id="yy" type="number" placeholder="Рік" class="border p-2 w-full mb-2 rounded">
+      <input id="bat" type="number" placeholder="Батарея (kWh)" class="border p-2 w-full mb-2 rounded">
+      <button onclick="ecarInfo()" class="bg-blue-600 text-white px-4 py-2 rounded w-full">ElectricCar</button>
+      <p id="r4" class="text-green-600 mt-4"></p>
+    </div>
+
+    <div>
+      <input id="a" type="number" placeholder="Число 1" class="border p-2 w-32 mb-2 rounded">
+      <input id="b2" type="number" placeholder="Число 2" class="border p-2 w-32 mb-2 rounded">
+      <button onclick="sum()" class="bg-blue-600 text-white px-4 py-2 rounded w-full">Додати</button>
+      <p id="r5" class="text-green-600 mt-4"></p>
+    </div>
+  </div>
+  <button onclick="window.location.href='lab8.html'" class="fixed bottom-6 right-6 w-16 h-16 rounded-full bg-blue-600 text-white flex items-center justify-center shadow-lg hover:bg-blue-700 transition">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" class="w-8 h-8">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+    </svg>
+  </button>
+  <script>
+    class Car {
+      constructor(b, m, y) {
+        this.b = b;
+        this.m = m;
+        this.y = y;
+      }
+      info() {
+        return `${this.b} ${this.m}, ${this.y}`;
+      }
+    }
+
+    class ElectricCar extends Car {
+      constructor(b, m, y, battery) {
+        super(b, m, y);
+        this.bat = battery;
+      }
+      charge() {
+        return `${this.b} ${this.m} заряджається (${this.bat} kWh)`;
+      }
+    }
+
+    class MathHelper {
+      static add(a, b) {
+        return a + b;
+      }
+    }
+
+    function carInfo() {
+      let c = new Car(b.value, m.value, y.value);
+      r3.textContent = c.info();
+    }
+
+    function ecarInfo() {
+      let e = new ElectricCar(bb.value, mm.value, yy.value, bat.value);
+      r4.innerHTML = e.info() + "<br>" + e.charge();
+    }
+
+    function sum() {
+      r5.textContent = "Результат: " + MathHelper.add(+a.value, +b2.value);
+    }
+  </script>
+</body>
+</html>

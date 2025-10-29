@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Завдання 2</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-8">
+  <div class="max-w-md mx-auto bg-white p-6 rounded-lg shadow">
+    <h1 class="text-2xl font-bold text-blue-600 text-center mb-4">Завдання 2.1. Виведення поточної дати, дня тижня і часу</h1>
+    <button onclick="showCurrentDate()" class="bg-blue-600 text-white px-4 py-2 rounded mb-2">Виконати</button>
+    <p id="currentDate" class="text-green-600 mt-4"></p>
+  </div>
+
+  <div class="max-w-md mx-auto bg-white p-6 rounded-lg shadow mt-8">
+    <h1 class="text-2xl font-bold text-blue-600 text-center mb-4">Завдання 2.2. Останній день місяця</h1>
+    <input id="year" type="number" placeholder="Рік" class="border p-2 w-full mb-2 rounded">
+    <input id="month" type="number" placeholder="Місяць (0-11)" class="border p-2 w-full mb-2 rounded">
+    <button onclick="findLastDay()" class="bg-blue-600 text-white px-4 py-2 rounded mb-2">Виконати</button>
+    <p id="lastDay" class="text-green-600 mt-4"></p>
+  </div>
+
+  <div class="max-w-md mx-auto bg-white p-6 rounded-lg shadow mt-8">
+    <h1 class="text-2xl font-bold text-blue-600 text-center mb-4">Завдання 2.3. Секунди від початку дня та до наступного дня</h1>
+    <button onclick="secondsOfDay()" class="bg-blue-600 text-white px-4 py-2 rounded mb-2">Виконати</button>
+    <p id="secondsResult" class="text-green-600 mt-4"></p>
+  </div>
+<button onclick="window.location.href='lab8.html'" class="fixed bottom-6 right-6 w-16 h-16 rounded-full bg-blue-600 text-white flex items-center justify-center shadow-lg hover:bg-blue-700 transition">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" class="w-8 h-8">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+    </svg>
+  </button>
+  <script>
+    function showCurrentDate() {
+      const months = ['січня', 'лютого', 'березня', 'квітня', 'травня', 'червня', 'липня', 'серпня', 'вересня', 'жовтня', 'листопада', 'грудня'];
+      const weekdays = ['неділя', 'понеділок', 'вівторок', 'середа', 'четвер', 'п’ятниця', 'субота'];
+      const d = new Date();
+      const date = d.getDate();
+      const month = months[d.getMonth()];
+      const year = d.getFullYear();
+      const weekday = weekdays[d.getDay()];
+      const hours = d.getHours().toString().padStart(2, '0');
+      const minutes = d.getMinutes().toString().padStart(2, '0');
+      const dateString = `Дата: ${date} ${month} ${year} року<br>День тижня: ${weekday}<br>Час: ${hours}:${minutes}`;
+      document.getElementById('currentDate').innerHTML = dateString;
+    }
+
+    function findLastDay() {
+      const year = +document.getElementById('year').value;
+      const month = +document.getElementById('month').value;
+      const lastDay = new Date(year, month + 1, 0).getDate();
+      document.getElementById('lastDay').textContent = `Останній день місяця: ${lastDay}`;
+    }
+
+    function secondsOfDay() {
+      const now = new Date();
+      const startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+      const endOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
+      const secondsPassed = Math.floor((now - startOfDay) / 1000);
+      const secondsUntilEndOfDay = Math.floor((endOfDay - now) / 1000);
+      document.getElementById('secondsResult').textContent = `Секунди, що пройшли від початку дня: ${secondsPassed}\nСекунди до наступного дня: ${secondsUntilEndOfDay}`;
+    }
+  </script>
+</body>
+</html>
