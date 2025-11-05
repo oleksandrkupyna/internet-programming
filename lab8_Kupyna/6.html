@@ -2,36 +2,65 @@
 <html lang="uk">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Завдання 6</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      text-align: center;
+      margin-top: 40px;
+      font-family: Arial;
+    }
+    input, button {
+      font-size: 18px;
+      padding: 8px 14px;
+      margin: 5px;
+    }
+    .block {
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 15px;
+      margin: 20px auto;
+      width: 400px;
+    }
+    .back-btn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #007bff;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 30px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .back-btn:hover {
+      background: #0056b3;
+    }
+  </style>
 </head>
-<body class="bg-gray-100 p-8">
-  <div class="max-w-md mx-auto bg-white p-6 rounded-lg shadow">
-    <h1 class="text-2xl font-bold text-blue-600 text-center mb-4">Movie / Series</h1>
-
-    <input id="mt" placeholder="Назва фільму" class="border p-2 w-full mb-2 rounded">
-    <input id="md" placeholder="Режисер" class="border p-2 w-full mb-2 rounded">
-    <input id="mdr" type="number" placeholder="Тривалість (хв)" class="border p-2 w-full mb-2 rounded">
-    <button onclick="playMovie()" class="bg-blue-600 text-white px-4 py-2 rounded w-full mb-4">Фільм</button>
-    <p id="mr" class="text-green-600 mt-4"></p>
-
-    <input id="st" placeholder="Назва серіалу" class="border p-2 w-full mb-2 rounded">
-    <input id="sd" placeholder="Режисер" class="border p-2 w-full mb-2 rounded">
-    <input id="sdur" type="number" placeholder="Тривалість епізоду (хв)" class="border p-2 w-full mb-2 rounded">
-    <input id="se" type="number" placeholder="Кількість епізодів" class="border p-2 w-full mb-2 rounded">
-    <input id="ss" type="number" placeholder="Сезон" class="border p-2 w-full mb-2 rounded">
-    <button onclick="showSeries()" class="bg-blue-600 text-white px-4 py-2 rounded w-full mb-4">Серіал</button>
-    <button onclick="nextEp()" class="bg-green-600 text-white px-4 py-2 rounded w-full mb-4">Наступний епізод</button>
-    <p id="sr" class="text-green-600 mt-4"></p>
-    
-    <button onclick="clearFields()" class="bg-red-600 text-white px-4 py-2 rounded w-full">Очистити поля</button>
+<body>
+  <h2>Movie / Series</h2>
+  <div class="block">
+    <h3>Фільм</h3>
+    <input id="mt" placeholder="Назва фільму"><br>
+    <input id="md" placeholder="Режисер"><br>
+    <input id="mdr" type="number" placeholder="Тривалість (хв)"><br>
+    <button onclick="playMovie()">Фільм</button>
+    <p id="mr"></p>
   </div>
-  <button onclick="window.location.href='lab8.html'" class="fixed bottom-6 right-6 w-16 h-16 rounded-full bg-blue-600 text-white flex items-center justify-center shadow-lg hover:bg-blue-700 transition">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" class="w-8 h-8">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-    </svg>
-  </button>
+  <div class="block">
+    <h3>Серіал</h3>
+    <input id="st" placeholder="Назва серіалу"><br>
+    <input id="sd" placeholder="Режисер"><br>
+    <input id="sdur" type="number" placeholder="Тривалість епізоду (хв)"><br>
+    <input id="se" type="number" placeholder="Кількість епізодів"><br>
+    <input id="ss" type="number" placeholder="Сезон"><br>
+    <button onclick="showSeries()">Серіал</button>
+    <button onclick="nextEp()">Наступний епізод</button>
+    <p id="sr"></p>
+  </div>
+  <button onclick="clearFields()">Очистити поля</button>
+  <button class="back-btn" onclick="window.location.href='lab8.html'">На головну</button>
   <script>
     class Movie {
       constructor(title, director, duration) {
@@ -71,14 +100,11 @@
       series = new Series(st.value, sd.value, sdur.value, se.value, ss.value);
       sr.textContent = series.play();
     }
-
     function nextEp() {
-      if (series) {
-        sr.innerHTML = series.next();
-      }
+      if (series) sr.textContent = series.next();
     }
     function clearFields() {
-      document.querySelectorAll("input").forEach(input => input.value = "");
+      document.querySelectorAll("input").forEach(i => i.value = "");
       mr.textContent = "";
       sr.textContent = "";
     }

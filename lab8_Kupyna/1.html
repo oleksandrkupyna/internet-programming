@@ -2,46 +2,68 @@
 <html lang="uk">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Завдання 1</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      text-align: center;
+      margin-top: 100px;
+      font-family: Arial;
+    }
+    button, input {
+      font-size: 18px;
+      padding: 8px 14px;
+      margin: 5px;
+    }
+    .back-btn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #007bff;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 30px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .back-btn:hover {
+      background: #0056b3;
+    }
+  </style>
 </head>
-<body class="bg-gray-100 p-8">
-<div class="max-w-md mx-auto bg-white p-6 rounded-lg shadow">
-  <h1 class="text-2xl font-bold text-blue-600 text-center mb-4">Об'єкт часу</h1>
+<body>
+  <h2>Об'єкт часу</h2>
+  <button onclick="showTime()">Показати час</button>
+  <p id="currentTime"></p>
 
-  <button onclick="showTime()" class="bg-blue-600 text-white px-4 py-2 rounded">Показати час</button>
-  <p id="currentTime" class="text-green-600 mt-2"></p>
+  <input id="sec" type="number" placeholder="Додати секунд">
+  <button onclick="addSec()">Додати</button>
+  <p id="newTime"></p>
+  <button class="back-btn" onclick="window.location.href='lab8.html'">На головну</button>
+  <script>
+    let t = {h:0, m:0, s:0};
 
-  <input id="sec" type="number" placeholder="Додати секунд" class="border p-2 w-full my-2 rounded">
-  <button onclick="addSec()" class="bg-blue-600 text-white px-4 py-2 rounded">Додати</button>
-  <p id="newTime" class="text-green-600 mt-2"></p>
-</div>
-<button onclick="window.location.href='lab8.html'" class="fixed bottom-6 right-6 w-16 h-16 rounded-full bg-blue-600 text-white flex items-center justify-center shadow-lg hover:bg-blue-700 transition">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" class="w-8 h-8">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-    </svg>
-  </button>
-<script>
-let t = {h:0,m:0,s:0};
+    function showTime() {
+      let d = new Date();
+      t.h = d.getHours();
+      t.m = d.getMinutes();
+      t.s = d.getSeconds();
+      document.getElementById("currentTime").textContent =
+        formatTime(t.h) + ":" + formatTime(t.m) + ":" + formatTime(t.s);
+    }
 
-function showTime() {
-  let d = new Date();
-  t.h = d.getHours(); t.m = d.getMinutes(); t.s = d.getSeconds();
-  document.getElementById('currentTime').textContent = formatTime(t.h) + ":" + formatTime(t.m) + ":" + formatTime(t.s);
-}
+    function addSec() {
+      t.s += +document.getElementById("sec").value;
+      if (t.s >= 60) { t.m += Math.floor(t.s / 60); t.s %= 60; }
+      if (t.m >= 60) { t.h += Math.floor(t.m / 60); t.m %= 60; }
+      if (t.h >= 24) t.h %= 24;
+      document.getElementById("newTime").textContent =
+        formatTime(t.h) + ":" + formatTime(t.m) + ":" + formatTime(t.s);
+    }
 
-function addSec() {
-  t.s += +document.getElementById('sec').value;
-  if (t.s >= 60) { t.m += Math.floor(t.s/60); t.s %= 60; }
-  if (t.m >= 60) { t.h += Math.floor(t.m/60); t.m %= 60; }
-  if (t.h >= 24) t.h %= 24;
-  document.getElementById('newTime').textContent = formatTime(t.h) + ":" + formatTime(t.m) + ":" + formatTime(t.s);
-}
-
-function formatTime(unit) {
-  return unit < 10 ? '0' + unit : unit;
-}
-</script>
+    function formatTime(x) {
+      return x < 10 ? "0" + x : x;
+    }
+  </script>
 </body>
 </html>

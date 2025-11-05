@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <title>Анімації — запуск окремо</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      padding: 30px;
+    }
+
+    .block {
+      width: 50px;
+      height: 50px;
+      background: steelblue;
+      position: relative;
+      margin: 10px auto;
+    }
+
+    button {
+      margin-bottom: 10px;
+      padding: 6px 15px;
+    }
+
+    .section {
+      margin-bottom: 40px;
+    }
+  </style>
+</head>
+<body>
+  <h2>Анімації з кнопками</h2>
+
+  <div class="section">
+    <button onclick="toggleInterval()">1. Запуск setInterval</button>
+    <div id="box1" class="block"></div>
+  </div>
+
+  <div class="section">
+    <button onclick="toggleRAF()">2. Запуск requestAnimationFrame</button>
+    <div id="box2" class="block"></div>
+  </div>
+
+  <div class="section">
+    <button onclick="toggleEase()">3. Запуск ease timing</button>
+    <div id="box3" class="block"></div>
+  </div>
+  <button onclick="window.location.href='lab9.html'">На головну</button>
+  <script>
+    // 1. setInterval
+    let intervalId = null;
+    let pos1 = 0, dir1 = 1;
+
+    function toggleInterval() {
+      if (intervalId) {
+        clearInterval(intervalId);
+        intervalId = null;
+      } else {
+        intervalId = setInterval(() => {
+          pos1 += dir1 * 2;
+          if (pos1 > 250 || pos1 < 0) dir1 *= -1;
+          document.getElementById("box1").style.left = pos1 + "px";
+        }, 20);
+      }
+    }
+    // 2. requestAnimationFrame
+    let rafOn = false, rafId = null;
+    let pos2 = 0, dir2 = 1;
+
+    function toggleRAF() {
+      rafOn = !rafOn;
+      if (rafOn) moveRAF();
+      else cancelAnimationFrame(rafId);
+    }
+
+    function moveRAF() {
+      if (!rafOn) return;
+      pos2 += dir2 * 2;
+      if (pos2 > 250 || pos2 < 0) dir2 *= -1;
+      document.getElementById("box2").style.left = pos2 + "px";
+      rafId = requestAnimationFrame(moveRAF);
+    }
+    // 3. ease (timing function)
+    let easeRunning = false;
+    let easeStart = null;
+    let easeId = null;
+    const duration = 2000;
+    const distance = 250;
+
+    function toggleEase() {
+      if (easeRunning) {
+        easeRunning = false;
+        cancelAnimationFrame(easeId);
+      } else {
+        easeRunning = true;
+        easeStart = null;
+        requestAnimationFrame(easeStep);
+      }
+    }
+
+    function easeInOut(t) {
+      return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+    }
+
+    function easeStep(time) {
+      if (!easeRunning) return;
+
+      if (!easeStart) easeStart = time;
+      let timeFraction = (time - easeStart) / duration;
+      if (timeFraction > 1) timeFraction = 1;
+
+      let progress = easeInOut(timeFraction);
+      document.getElementById("box3").style.left = distance * progress + "px";
+
+      if (timeFraction < 1) {
+        easeId = requestAnimationFrame(easeStep);
+      } else {
+        easeRunning = false;
+      }
+    }
+  </script>
+</body>
+</html>

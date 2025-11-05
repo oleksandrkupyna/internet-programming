@@ -2,43 +2,72 @@
 <html lang="uk">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Завдання 3-5</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Завдання 3–5</title>
+  <style>
+    body {
+      text-align: center;
+      margin-top: 50px;
+      font-family: Arial;
+    }
+    input, button {
+      font-size: 18px;
+      padding: 8px 14px;
+      margin: 5px;
+    }
+    .block {
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 15px;
+      margin: 20px auto;
+      width: 400px;
+    }
+    .back-btn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #007bff;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 30px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .back-btn:hover {
+      background: #0056b3;
+    }
+  </style>
 </head>
-<body class="bg-gray-100 p-8">
-  <div class="max-w-md mx-auto bg-white p-6 rounded-lg shadow">
-    <h1 class="text-2xl font-bold text-blue-600 text-center mb-4">Класи</h1>
+<body>
+  <h2>Класи</h2>
 
-    <div class="mb-6">
-      <input id="b" placeholder="Бренд" class="border p-2 w-full mb-2 rounded">
-      <input id="m" placeholder="Модель" class="border p-2 w-full mb-2 rounded">
-      <input id="y" type="number" placeholder="Рік" class="border p-2 w-full mb-2 rounded">
-      <button onclick="carInfo()" class="bg-blue-600 text-white px-4 py-2 rounded w-full">Car</button>
-      <p id="r3" class="text-green-600 mt-4"></p>
-    </div>
-
-    <div class="mb-6">
-      <input id="bb" placeholder="Бренд" class="border p-2 w-full mb-2 rounded">
-      <input id="mm" placeholder="Модель" class="border p-2 w-full mb-2 rounded">
-      <input id="yy" type="number" placeholder="Рік" class="border p-2 w-full mb-2 rounded">
-      <input id="bat" type="number" placeholder="Батарея (kWh)" class="border p-2 w-full mb-2 rounded">
-      <button onclick="ecarInfo()" class="bg-blue-600 text-white px-4 py-2 rounded w-full">ElectricCar</button>
-      <p id="r4" class="text-green-600 mt-4"></p>
-    </div>
-
-    <div>
-      <input id="a" type="number" placeholder="Число 1" class="border p-2 w-32 mb-2 rounded">
-      <input id="b2" type="number" placeholder="Число 2" class="border p-2 w-32 mb-2 rounded">
-      <button onclick="sum()" class="bg-blue-600 text-white px-4 py-2 rounded w-full">Додати</button>
-      <p id="r5" class="text-green-600 mt-4"></p>
-    </div>
+  <div class="block">
+    <h3>Завдання 3 — Car</h3>
+    <input id="b" placeholder="Бренд">
+    <input id="m" placeholder="Модель">
+    <input id="y" type="number" placeholder="Рік"><br>
+    <button onclick="carInfo()">Car</button>
+    <p id="r3"></p>
   </div>
-  <button onclick="window.location.href='lab8.html'" class="fixed bottom-6 right-6 w-16 h-16 rounded-full bg-blue-600 text-white flex items-center justify-center shadow-lg hover:bg-blue-700 transition">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" class="w-8 h-8">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-    </svg>
-  </button>
+
+  <div class="block">
+    <h3>Завдання 4 — ElectricCar</h3>
+    <input id="bb" placeholder="Бренд">
+    <input id="mm" placeholder="Модель">
+    <input id="yy" type="number" placeholder="Рік">
+    <input id="bat" type="number" placeholder="Батарея (kWh)"><br>
+    <button onclick="ecarInfo()">ElectricCar</button>
+    <p id="r4"></p>
+  </div>
+
+  <div class="block">
+    <h3>Завдання 5 — MathHelper</h3>
+    <input id="a" type="number" placeholder="Число 1">
+    <input id="b2" type="number" placeholder="Число 2"><br>
+    <button onclick="sum()">Додати</button>
+    <p id="r5"></p>
+  </div>
+  <button class="back-btn" onclick="window.location.href='lab8.html'">На головну</button>
   <script>
     class Car {
       constructor(b, m, y) {

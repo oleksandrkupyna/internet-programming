@@ -20,11 +20,10 @@
   <script>
     function task10() {
       let s = document.getElementById('input10').value;
-      // Перевіряємо всі можливі підрядки довжиною від 2 і більше
       for (let l = 2; l <= s.length; l++) {
         for (let i = 0; i <= s.length - l; i++) {
-          let sub = s.substring(i, i + l); // підрядок довжиною l
-          if (s.indexOf(sub, i + 1) !== -1) { // якщо підрядок зустрічається ще раз після поточного індексу
+          let sub = s.substring(i, i + l);
+          if (s.indexOf(sub, i + 1) !== -1) {
             document.getElementById('result10').textContent = 'Підрядок: "' + sub + '"';
             return;
           }
