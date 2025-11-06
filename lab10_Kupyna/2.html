@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <title>Лабораторна 10 — Завдання 2</title>
+  <script src="jquery-3.7.1.min.js"></script>
+  <style>
+    div {
+      width: 250px;
+      padding: 15px;
+      margin: 20px;
+      border: 2px solid gray;
+      text-align: center;
+    }
+    .hovered {
+      background: lightblue;
+      border-color: blue;
+      transition: 0.3s;
+    }
+  </style>
+  <script>
+    $(document).ready(function() {
+      $("p:first").text("DOM first!");
+      $("p:last").text("DOM last!");
+
+      $("div").hover(
+        function() { $(this).addClass("hovered"); },
+        function() { $(this).removeClass("hovered"); }
+      );
+    });
+  </script>
+</head>
+<body>
+  <p>Перший абзац</p>
+  <div>Наведи курсор сюди</div>
+  <p>Останній абзац</p>
+  <button onclick="window.location.href='lab10.html'">На головну</button>
+</body>
+</html>

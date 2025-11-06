@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <title>Лабораторна 10 — Завдання 1</title>
+  <script src="jquery-3.7.1.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      alert("Бібліотека jQuery готова до роботи!");
+
+      let textBlock = $('#hide_text');
+      textBlock.hide();
+
+      $('.button').click(function() {
+        textBlock.show(200); 
+      });
+    });
+  </script>
+</head>
+<body>
+  <h1>Контент сторінки</h1>
+  <a href="#" class="button">Натисніть, щоб показати текст</a>
+  <div id="hide_text">Демонстраційний прихований текст</div><br>
+  <button onclick="window.location.href='lab10.html'">На головну</button>
+</body>
+</html>

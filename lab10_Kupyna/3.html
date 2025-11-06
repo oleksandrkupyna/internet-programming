@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <title>Лабораторна 10 — Завдання 3</title>
+  <script src="jquery-3.7.1.min.js"></script>
+  <style>
+    .highlight {
+      background: #ffd6d6;
+      transition: 0.3s;
+    }
+    #img {
+      display: none;
+      width: 200px;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+    span {
+      color: red;
+      font-weight: bold;
+    }
+    button {
+      margin-right: 10px;
+      padding: 5px 10px;
+    }
+  </style>
+  <script>
+    $(document).ready(function() {
+      $("div").bind("click", function() {
+        $(this).addClass("highlight");
+      });
+      $("div").bind("dblclick", function() {
+        $(this).removeClass("highlight");
+      });
+      $("#single").click(function() {
+        alert("Одинарний клік");
+      });
+      $("#double").dblclick(function() {
+        alert("Подвійний клік");
+      });
+      $("#showImg").click(function() {
+        $("#img").show();
+      });
+      $("#img").click(function() {
+        $(this).hide();
+      }).mouseover(function() {
+        $(this).attr("title", "Зображення");
+      });
+      $("form").submit(function() {
+        if ($("input:first").val() == "correct") {
+          alert("Успішно");
+          return true;
+        }
+        $("span").text("Неправильно").show().fadeOut(1500);
+        return false;
+      });
+    });
+  </script>
+</head>
+<body>
+  <h2>Перевірка подій у jQuery</h2>
+  <div>Клацни або двічі клацни цей блок</div>
+  <button id="single">Одинарний клік</button>
+  <button id="double">Подвійний клік</button>
+  <p id="showImg" style="color:blue; cursor:pointer;">Показати зображення</p>
+  <img id="img" src="https://images.unian.net/photos/2022_03/thumb_files/1200_0_1648468790-5163.jpeg" alt="Demo">
+  <p>Введіть у поле слово 'correct'</p>
+  <form action="javascript:void(0);">
+    <input type="text">
+    <input type="submit" value="Перевірити">
+  </form>
+  <span></span><br>
+  <button onclick="window.location.href='lab10.html'">На головну</button>
+</body>
+</html>
