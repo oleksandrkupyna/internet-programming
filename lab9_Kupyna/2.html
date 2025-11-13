@@ -1,105 +1,116 @@
 <!DOCTYPE html>
 <html lang="uk">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Лабораторна 9 — Анімації</title>
-  <style>
+<meta charset="UTF-8">
+<title>Анімований логотип ІПЗ</title>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
     body {
-      background: #081223;
-      color: #00bfff;
-      font-family: Arial, sans-serif;
-      text-align: center;
-      margin: 0;
+        background: #0a0f1a;
+        font-family: Arial, sans-serif;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        color: #00b7ff;
+        overflow: hidden;
     }
-    h1 { margin: 20px 0; font-size: 26px; }
-    button {
-      background: #00bfff;
-      color: #fff;
-      border: none;
-      padding: 10px 25px;
-      border-radius: 10px;
-      font-size: 16px;
-      cursor: pointer;
-      transition: .3s;
+    h1 {
+        font-size: 2.4rem;
+        text-shadow: 0 0 18px #0099ff;
+        min-height: 3rem;
+        margin-top: 40px;
     }
-    button:hover { background: #0096d6; }
-    canvas {
-      display: block;
-      margin: 30px auto;
-      background: #0b0b0b;
-      border-radius: 15px;
-      box-shadow: 0 0 25px #00bfff33;
+    #ball {
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        background: radial-gradient(circle, #00d0ff, #0080ff);
+        box-shadow: 0 0 25px #00caff;
+        position: relative;
+        top: -50px;
     }
-    #home {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
+    .btn {
+        padding: 10px 26px;
+        font-size: 17px;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        background: #00b7ff;
+        color: #000;
+        cursor: pointer;
+        transition: 0.2s;
+        margin-top: 20px;
+        box-shadow: 0 0 10px #0099ff;
     }
-  </style>
+    .btn:hover {
+        background: #38d4ff;
+        box-shadow: 0 0 18px #00c6ff;
+    }
+</style>
 </head>
 <body>
-  <h1>Анімований логотип ІПЗ</h1>
-  <button id="btn">Запустити / Зупинити</button>
-  <canvas id="c" width="600" height="400"></canvas>
+<div id="ball"></div>
+<h1 id="title"></h1>
+<button id="btn" class="btn">Старт / Стоп</button>
+<button class="btn" onclick="window.location.href='lab9.html'">На головну</button>
+<script>
+let running = false;
+const ball = document.getElementById("ball");
+const title = document.getElementById("title");
+const btn = document.getElementById("btn");
 
-  <button id="home" onclick="window.location.href='lab9.html'">На головну</button>
+let y = 0;
+let dy = 1;
+let scale = 1;
+let dScale = 0.005;
 
-  <script>
-    const c = document.getElementById("c"), ctx = c.getContext("2d");
-    let run = false, show = "", i = 0;
-    const circle = {x: 300, y: 250, r: 40, dx: 3, dy: 2, grow: true};
-    const text = "Інженерія програмного забезпечення";
-    const snow = Array.from({length: 100}, () => ({
-      x: Math.random() * c.width,
-      y: Math.random() * c.height,
-      r: Math.random() * 2 + 1,
-      dy: Math.random() + 0.5
-    }));
+let text = "Інженерія програмного забезпечення";
+let index = 0;
+let direction = 1;
+let textDelay = 0;
 
-    function drawSnow() {
-      ctx.fillStyle = "#fff";
-      snow.forEach(s => {
-        ctx.beginPath();
-        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-        ctx.fill();
-        s.y += s.dy;
-        if (s.y > c.height) s.y = -5, s.x = Math.random() * c.width;
-      });
+function loop() {
+    if (!running) return;
+
+    y += dy;
+    if (y > 40 || y < -40) dy = -dy;
+    ball.style.top = y + "px";
+
+    scale += dScale;
+    if (scale > 1.15 || scale < 1) dScale = -dScale;
+    ball.style.transform = `scale(${scale})`;
+
+    if (textDelay <= 0) {
+        index += direction;
+
+        if (index >= text.length) {
+            direction = -1;
+            textDelay = 500;
+        } else if (index <= 0) {
+            direction = 1;
+            textDelay = 200;
+        } else {
+            textDelay = 6;
+        }
+
+        title.textContent = text.slice(0, index);
+    } else {
+        textDelay--;
     }
 
-    function type() {
-      if (!run || i >= text.length) return;
-      show += text[i++];
-      setTimeout(type, 60);
-    }
+    requestAnimationFrame(loop);
+}
 
-    function draw() {
-      if (!run) return;
-      ctx.clearRect(0, 0, c.width, c.height);
-      drawSnow();
-      ctx.font = "bold 24px Arial";
-      ctx.fillStyle = "#fff";
-      ctx.textAlign = "center";
-      ctx.fillText(show, c.width / 2, 100);
-      ctx.beginPath();
-      ctx.arc(circle.x, circle.y, circle.r, 0, Math.PI * 2);
-      ctx.fillStyle = "#00bfff";
-      ctx.fill();
-      circle.x += circle.dx;
-      circle.y += circle.dy;
-      if (circle.x + circle.r > c.width || circle.x - circle.r < 0) circle.dx *= -1;
-      if (circle.y + circle.r > c.height || circle.y - circle.r < 0) circle.dy *= -1;
-      circle.r += circle.grow ? 0.3 : -0.3;
-      if (circle.r > 60 || circle.r < 25) circle.grow = !circle.grow;
-      requestAnimationFrame(draw);
-    }
-
-    document.getElementById("btn").onclick = () => {
-      run = !run;
-      if (run) show = "", i = 0, type(), draw();
-      else ctx.clearRect(0, 0, c.width, c.height);
-    };
-  </script>
+btn.onclick = () => {
+    running = !running;
+    if (running) loop();
+};
+</script>
 </body>
 </html>
