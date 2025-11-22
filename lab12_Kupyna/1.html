@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<title>Лабораторна 12 — Завдання 1</title>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-6">
+    <h1 class="text-3xl font-bold text-blue-600 mb-4 text-center">Завдання 1 — Ефекти jQuery</h1>
+    <div id="block" class="bg-white p-6 rounded shadow text-center max-w-sm mx-auto">
+        Тестовий блок
+    </div>
+    <div class="text-center mt-6">
+        <button id="toggle_btn" class="px-4 py-2 bg-blue-500 text-white rounded">toggle()</button>
+        <button id="fade_in_btn" class="px-4 py-2 bg-blue-500 text-white rounded">fadeIn()</button>
+        <button id="fade_out_btn" class="px-4 py-2 bg-blue-500 text-white rounded">fadeOut()</button>
+        <button id="slide_down_btn" class="px-4 py-2 bg-blue-500 text-white rounded">slideDown()</button>
+        <button id="slide_up_btn" class="px-4 py-2 bg-blue-500 text-white rounded">slideUp()</button>
+    </div>
+    <button onclick="window.location.href='lab12.html'"
+    class="fixed bottom-6 right-6 w-16 h-16 rounded-full bg-blue-600 text-white flex items-center justify-center shadow-lg hover:bg-blue-700 transition">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-8 h-8">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+    </svg>
+    </button>
+    <script>
+        $("#toggle_btn").click(()=> $("#block").toggle());
+        $("#fade_in_btn").click(()=> $("#block").fadeIn(600));
+        $("#fade_out_btn").click(()=> $("#block").fadeOut(600));
+        $("#slide_down_btn").click(()=> $("#block").slideDown(600));
+        $("#slide_up_btn").click(()=> $("#block").slideUp(600));
+    </script>
+</body>
+</html>

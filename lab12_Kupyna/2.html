@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<title>Лабораторна 12 — Завдання 2</title>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+<style>
+    body {
+        background: #0a0f1a;
+        color: #00b7ff;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        font-family: Arial;
+    }
+    #logo {
+        width: 100px;
+        height: 100px;
+        background: #00aaff;
+        border-radius: 20px;
+        box-shadow: 0 0 25px #00caff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        font-size: 32px;
+        font-weight: bold;
+        position: relative;
+    }
+    .btn {
+        margin-top: 20px;
+        padding: 10px 26px;
+        border-radius: 8px;
+        border: none;
+        background: #00b7ff;
+        cursor: pointer;
+        color: black;
+        font-weight: bold;
+        font-size: 17px;
+        box-shadow: 0 0 10px #0099ff;
+    }
+    .btn:hover {
+        background: #38d4ff;
+    }
+</style>
+</head>
+<body>
+    <div id="logo">ІПЗ</div>
+    <button id="start" class="btn">Старт</button>
+    <button id="stop" class="btn">Стоп</button>
+    <button class="btn" onclick="window.location.href='lab12.html'">На головну</button>
+    <script>
+    let running = false;
+
+    function pulse() {
+        if (!running) return;
+
+        $("#logo").animate(
+            {
+                width: "140px",
+                height: "140px",
+                opacity: 0.6,
+                top: "-15px"
+            },
+            {
+                duration: 600,
+                easing: "swing",
+                queue: true,
+                specialEasing: { width: "linear", height: "linear" },
+                complete: function () {
+                    $("#logo").animate(
+                        {
+                            width: "100px",
+                            height: "100px",
+                            opacity: 1,
+                            top: "0px"
+                        },
+                        {
+                            duration: 600,
+                            easing: "swing",
+                            queue: true,
+                            complete: pulse
+                        }
+                    );
+                }
+            }
+        );
+    }
+    $("#start").click(function () {
+        if (!running) {
+            running = true;
+            pulse();
+        }
+    });
+    $("#stop").click(function () {
+        running = false;
+        $("#logo").stop(true, true);
+    });
+    </script>
+</body>
+</html>
