@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<title>Лабораторна 11 — jQuery</title>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<style>
+    body {
+        font-family: Arial;
+        padding: 20px;
+    }
+    h2 {
+        margin-top: 35px;
+    }
+    .box {
+        padding: 12px;
+        margin: 12px 0;
+        border: 1px solid #444;
+        border-radius: 5px;
+    }
+    button {
+        margin: 4px;
+        padding: 7px 15px;
+        font-size: 14px;
+        cursor: pointer;
+    }
+    .modify {
+        background: yellow;
+        border: 2px solid red;
+    }
+    .btn-fixed {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        padding: 10px 24px;
+        font-size: 16px;
+        border: none;
+        border-radius: 8px;
+        background: #00b7ff;
+        color: #000;
+        cursor: pointer;
+    }
+</style>
+</head>
+<body>
+    <h2>Завдання 1</h2>
+    <div id="t1" class="box">Початковий текст</div>
+    <input id="inp1" value="hello">
+    <div>
+        <button id="btn_html">html()</button>
+        <button id="btn_css">css()</button>
+        <button id="btn_val">val()</button>
+        <button id="btn_attr_set">attr() set</button>
+        <button id="btn_attr_get">attr() get</button>
+        <button id="btn_remove_attr">removeAttr()</button>
+    </div>
+    <h2>Завдання 2 (варіант 5)</h2>
+    <div id="t2" class="box">DIV для операцій</div>
+    <div>
+        <button id="before_btn">before()</button>
+        <button id="replace_btn">replaceWith()</button>
+        <button id="width_btn">width(function)</button>
+        <button id="position_btn">position()</button>
+    </div>
+    <h2>Завдання 3 (варіант 5)</h2>
+    <ul id="tree" class="box">
+        <li>Елемент 1</li>
+        <li class="middle">Елемент 2</li>
+        <li>Елемент 3</li>
+    </ul>
+    <div>
+        <button id="children_btn">children()</button>
+        <button id="is_btn">is(.middle)</button>
+        <button id="parents_btn">parents()</button>
+        <button id="closest_btn">closest(div)</button>
+        <button id="parents_until_btn">parentsUntil(body)</button>
+    </div>
+    <h2>Завдання 4</h2>
+    <ul id="list4" class="box">
+        <li>1</li><li>2</li><li>3</li>
+        <li>4</li><li>5</li><li>6</li>
+    </ul>
+    <div>
+        <button id="filter_class">modify класу box</button>
+        <button id="filter_li">modify кожного 3-го li</button>
+    </div>
+    <h2>Завдання 5</h2>
+    <div>
+        <button id="trim_btn">$.trim()</button>
+        <button id="numeric_btn">$.isNumeric()</button>
+        <button id="type_btn">$.type()</button>
+        <button id="map_btn">$.map()</button>
+    </div>
+    <button class="btn-fixed" onclick="window.location.href='../index.html'">На головну</button>
+    <script>
+        $("#btn_html").click(()=> $("#t1").html("<b>Новий HTML</b>"));
+        $("#btn_css").click(()=> $("#t1").css({color:"red", fontSize:"22px"}));
+        $("#btn_val").click(()=> alert($("#inp1").val()));
+        $("#btn_attr_set").click(()=> $("#t1").attr("title","підказка"));
+        $("#btn_attr_get").click(()=> alert($("#t1").attr("title")));
+        $("#btn_remove_attr").click(()=> $("#t1").removeAttr("title"));
+
+        $("#before_btn").click(()=> $("#t2").before("<p>Додано перед DIV</p>"));
+
+        $("#replace_btn").click(()=> $("#t2").html("DIV замінено"));
+
+        $("#width_btn").click(()=> {
+            $(".box").width(function(i, old){
+                return old + 20;
+            });
+        });
+        $("#position_btn").click(()=> {
+            let p = $("#t2").position();
+            alert("top: " + p.top + " left: " + p.left);
+        });
+
+        $("#children_btn").click(()=> console.log($("#tree").children()));
+        $("#is_btn").click(()=> alert($("#tree li.middle").is(".middle")));
+        $("#parents_btn").click(()=> console.log($("#tree").parents()));
+        $("#closest_btn").click(()=> console.log($("#tree").closest("div")));
+        $("#parents_until_btn").click(()=> console.log($("#tree").parentsUntil("body")));
+
+        $("#filter_class").click(()=> {
+            $(".box").addClass("modify").append(" modify");
+        });
+        $("#filter_li").click(()=> {
+            $("#list4 li:nth-child(3n)").addClass("modify").append(" modify");
+        });
+
+        $("#trim_btn").click(()=> {
+            let s = "   hello   ";
+            alert("Результат: [" + $.trim(s) + "]");
+        });
+        $("#numeric_btn").click(()=> alert($.isNumeric("123")));
+        $("#type_btn").click(()=> {
+            console.log($.type(123), $.type("hi"), $.type([]), $.type({}), $.type(true));
+            alert("Типи даних виведені у консоль");
+        });
+        $("#map_btn").click(()=> alert($.map([1,2,3], x=>x*2)));
+    </script>
+</body>
+</html>
